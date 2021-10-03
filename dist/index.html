@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+    <!-- logo icon  -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <!-- stylesheet file -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- title -->
+    <title>Frontend Mentor | Todo app</title>
+
+</head>
+<body class="m-0 box-border bg-light-white text-textColor dark:bg-darkModeBg font-josefin transition-all">
+    <div id="root">
+        <main class="">
+            <!-- Nav -->
+            <nav class="px-0 pt-0 bg-transparent">
+                <div class="flex justify-between absolute w-full px-8 pt-8 sm:px-36 lg:px-48 lg:pt-10 xl:px-72 xl:pt-10">
+                    <!-- <div class="mx-auto sm:w-full"> -->
+                        <h1 class="text-light-white text-3xl tracking-widest uppercase font-medium lg:text-4xl xl:text-5xl">Todo</h1>
+                        <a href="#" id="mode">
+                            <img id="mode-img" class="w-8 h-7 inline-block" src="../images/icon-moon.svg" alt="icon-moon">
+                        </a>
+                    <!-- </div> -->
+                </div>
+                <!-- nav image -->
+                <div class="nav-bg">
+                    <img class="nav-img w-full bg-contain bg-center bg-no-repeat sm:h-40 sm:hidden lg:h-52 lg:bg-auto xl:h-56" src="../images/bg-mobile-light.jpg" alt="bg-mobile-light">
+                    <img id="desktop-bg" class="nav-img w-full bg-contain bg-center bg-no-repeat hidden sm:h-40 sm:flex lg:h-52 lg:bg-auto xl:h-56" src="../images/bg-desktop-light.jpg" alt="bg-desktop-light">
+                </div>
+            </nav>
+
+            <section class="relative w-10/12 mx-auto -top-28 sm:-top-16 sm:w-3/5 lg:-top-28 lg:max-w-2xl">
+                <div id="addTodo" class="flex justify-between px-4 py-2 rounded bg-white dark:bg-input-bg sm:justify-start">
+                    <div class="">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="add" name="A3-confirmation" class="opacity-0 absolute h-8 w-8 cursor-pointer" />
+                            <div id="checkbox" class="border-2 rounded-xl border-gray-300 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 mt-0 focus-within:border-blue-500 lg:w-7 lg:h-7">
+                                <svg class="fill-current hidden w-3 h-3 text-blue-600 pointer-events-none" version="1.1" viewBox="0 0 17 12" xmlns="http://www.w3.org/2000/svg">
+                                <g fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-9 -11)" fill="#fff" fill-rule="nonzero">
+                                    <path d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z" />
+                                    </g>
+                                </g>
+                                </svg>
+                            </div>
+                            <label for="add" class="select-none"></label>
+                        </div>
+                    </div>
+                    
+                    <input id="taskValue" type="text" name="todo" placeholder="Create a new todo.." class="bg-white dark:bg-input-bg text-black w-full outline-none dark:text-white sm:text-base lg:py-1 xl:py-1.5 xl:text-xl"/> 
+                </div>
+
+                <ul id="todos" class="bg-white dark:bg-input-bg text-listColor dark:text-textColor mt-4 mb-4 rounded shadow-md">
+                    <div id="div" class="flex justify-between py-2 px-2 text-sm text-textColor font-medium sm:text-base xl:text-xl"></div>
+                </ul>
+
+                <div class="flex justify-between bg-white dark:bg-input-bg rounded py-2 px-2 text-base font-semibold lg:hidden">
+                    <p><a href="" class="cursor-pointer">All</a></p>
+                    <p><a href="" class="cursor-pointer">Active</a></p>
+                    <p><a href="" class="cursor-pointer">Completed</a></p>
+                </div>
+                <p class="mt-8 text-center font-medium">Drag and drop to reorder list</p> 
+
+            </section>
+
+
+            <div class="relative bottom-0 text-base font-medium w-full">
+                <div class="w-11/12 mx-auto text-attributionColor pb-2 text-center">
+                    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"><strong>Frontend Mentor</strong></a>. 
+                    Coded by <a href="#" target="_blank"><strong>CodexJay</strong></a>.
+                </div>
+                
+            </div>
+
+        </main>
+    </div>
+
+    <script src="./app.js"></script>
+  <!-- Compiled and minified javascript -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
+
+</body>
+</html>

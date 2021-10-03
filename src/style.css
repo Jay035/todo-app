@@ -1,0 +1,39 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+/* *{
+    transition: 0.6s;
+} */
+
+/* #root{
+    --body:#fff;
+    --inputBackground: #fafafa;
+    --attributionColor: #3e52a3;
+} */
+
+/* light mode */
+/* html[data-theme='light']{
+    --body:#fff;
+    --inputBackground: #fafafa;
+} */
+
+/* dark mode */
+/* html[data-theme='dark']{
+    --body:hsl(237, 14%, 26%);
+    --attributionColor: #fff;
+    --inputBackground: #4d5066; 
+} */
+
+input:checked + div {
+    @apply border-transparent;
+    @apply bg-gradient-to-r;
+    @apply from-blue-gradient-start;
+    @apply to-blue-gradient-end;
+}
+
+input:checked + div svg {
+    @apply block;
+}
