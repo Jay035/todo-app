@@ -150,7 +150,7 @@ function changeImg(){
   let desktopNavBg = document.getElementById('desktop-bg');
 
   // if(img.src.match('../images/icon-moon.svg'))
-  img.src.match('../images/icon-moon.svg')
+  img.src.match('./images/icon-moon.svg')
     ? (document.documentElement.classList.add('dark'), img.src='../images/icon-sun.svg', desktopNavBg.src='../images/bg-desktop-dark.jpg', nav_bg.src='../images/bg-mobile-dark.jpg')
     : (document.documentElement.classList.remove('dark'), img.src='../images/icon-moon.svg', desktopNavBg.src='../images/bg-desktop-light.jpg', nav_bg.src='../images/bg-mobile-light.jpg')
     
