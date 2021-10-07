@@ -31,7 +31,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      transform: ['hover'],
+      scale: ['hover'],
+    },
   },
   plugins: [],
 }
