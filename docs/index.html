@@ -6,10 +6,11 @@
     <!-- logo icon  -->
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
     <!-- stylesheet file -->
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/30175a4a2d.js" crossorigin="anonymous"></script>  
     <!-- title -->
     <title>Frontend Mentor | Todo app</title>
 
@@ -27,6 +28,8 @@
                         </a>
                     <!-- </div> -->
                 </div>
+                <div id="date" class="text-center uppercase opacity-90 absolute text-light-white text-xs top-20 pl-8 w-max sm:pl-36 lg:pl-48 xl:pl-72"></div>
+
                 <!-- nav image -->
                 <div class="nav-bg">
                     <img class="nav-img w-full bg-contain bg-center bg-no-repeat sm:h-40 sm:hidden lg:h-52 lg:bg-auto xl:h-56" src="./images/bg-mobile-light.jpg" alt="bg-mobile-light">
@@ -34,29 +37,25 @@
                 </div>
             </nav>
 
-            <section class="relative w-10/12 mx-auto -top-28 sm:-top-16 sm:w-3/5 lg:-top-28 lg:max-w-2xl">
+            <section class="relative w-10/12 mx-auto -top-24 sm:-top-12 sm:w-3/5 lg:-top-24 lg:max-w-2xl">
                 <div id="addTodo" class="flex justify-between px-4 py-2 rounded bg-white dark:bg-input-bg sm:justify-start">
-                    <div class="">
-                        <div class="flex items-center">
-                            <input type="checkbox" id="add" name="A3-confirmation" class="opacity-0 absolute h-8 w-8 cursor-pointer" />
-                            <div class="border-2 rounded-xl border-gray-300 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 mt-0 focus-within:border-blue-500 lg:w-7 lg:h-7">
-                                <svg class="fill-current hidden w-3 h-3 text-blue-600 pointer-events-none" version="1.1" viewBox="0 0 17 12" xmlns="http://www.w3.org/2000/svg">
-                                <g fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-9 -11)" fill="#fff" fill-rule="nonzero">
-                                    <path d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z" />
-                                    </g>
-                                </g>
-                                </svg>
-                            </div>
-                            <label for="add" class="select-none"></label>
-                        </div>
-                    </div>
+                    <i class="far fa-circle fa-lg cursor-pointer id="addTodo"></i>
                     
-                    <input id="taskValue" type="text" name="todo" placeholder="Create a new todo.." class="bg-white dark:bg-input-bg text-black w-full outline-none dark:text-white sm:text-base lg:py-1 xl:py-1.5 xl:text-xl"/> 
+                    <input id="taskValue" type="text" name="todo" placeholder="Create a new todo.." class="bg-white dark:bg-input-bg text-black w-full ml-2 outline-none dark:text-white sm:text-base lg:py-1 xl:py-1.5 xl:text-xl"/> 
                 </div>
 
-                <ul id="todos" class="bg-white dark:bg-input-bg text-listColor dark:text-textColor mt-4 mb-4 rounded shadow-md hover:transform hover:scale-110">
-                    <div id="div" class="flex justify-between py-2 px-2 text-sm text-textColor font-medium sm:text-base xl:text-xl"></div>
+                <ul id="todos" class="bg-white dark:bg-input-bg divide-y divide-gray-500 text-listColor dark:text-textColor mt-4 mb-4 rounded shadow-md">
+                    <!-- <li class="flex justify-between w-full pt-2 px-3.5 pb-1.5"> 
+                        <div class="">
+                            <i class="far fa-circle"></i>
+                            <p class="break-all ml-2">todo</p>
+                        </div>
+                        
+                        <i class="fas fa-times text-gray-400" ></i>
+                    </li>  -->
+                    <!-- <div id="todos" class="divide-y divide-gray-500"></div> -->
+                    <div id="div" class="flex justify-between py-2 px-2 text-sm text-textColor font-medium sm:text-base xl:text-xl">
+                    </div>
                 </ul>
 
                 <div class="flex justify-between bg-white dark:bg-input-bg rounded py-2 px-2 text-base font-semibold lg:hidden">
