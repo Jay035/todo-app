@@ -169,21 +169,39 @@ lists.addEventListener('click', function(event){
 
   if(taskJob.contains('complete')){
     completeTodo(task);
+
+    // add todo to localStorage
+    localStorage.setItem('TODO', JSON.stringify(LIST))
   }else if(taskJob.contains('delete')){
     removeTodo(task);
   }
-
-  // add todo to localStorage
-  localStorage.setItem('TODO', JSON.stringify(LIST))
 })
 
 // clear completed todos
 function clear(){
-  for(let i = 0; i < lists.childNodes.length; i++){
-    const completed = lists.childNodes;
-    console.log(completed)
+  
+  let list = JSON.parse(localStorage.getItem('TODO'));
+  let newList = [];
+  let checkedItems = document.getElementById('todos').children;
+  
+  for(item of list) {
+    let i = list.indexOf(item);
     
+    item.done ? checkedItems[i].classList.add('remove-item') : newList.push(item);
   }
+
+  // Remove <li> tags from DOM
+  removeItems = document.getElementsByClassName('remove-item')
+  while (removeItems.length > 0) removeItems[0].remove();
+
+  // Update localStorage
+  localStorage.setItem('TODO', JSON.stringify(newList));
+
+  // for(let i = 0; i < lists.childNodes.length; i++){
+  //   const completed = lists.childNodes;
+  //   console.log(completed)
+    
+  // }
 }
 //   let completed = document.getElementsByClassName('strike');
 //   console.log(completed);
