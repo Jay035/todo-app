@@ -182,7 +182,7 @@ function clear(){
   }
 
   // Remove <li> tags from DOM
-  let removeItems = document.getElementsByClassName('remove-item');
+  removeItems = document.getElementsByClassName('remove-item');
   console.log(removeItems)
 
   if(confirm('Are you sure ?')){
