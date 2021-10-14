@@ -17,17 +17,15 @@ const endColor = "to-blue-gradient-end";
 // variables 
 let LIST, id ;
 
-// get todo from localStorage
-let data = localStorage.getItem('TODO');
 
-if(data === null){
+if(localStorage.getItem('TODO') === null){
   // if data is empty 
   LIST = [];
   id  = 0;
   
 }
 else{
-  LIST = JSON.parse(data);
+  LIST = JSON.parse(localStorage.getItem('TODO'));
   id = LIST.length;
   loadList(LIST);
 }
@@ -75,7 +73,7 @@ function addTodo(toDo, id, done, trash){
       const end = done ? endColor : "";
       const LINE = done ? strike : "";
       const text = `
-        <li class="flex justify-between w-full pt-2 px-3.5 pb-1.5"> 
+        <li class="flex justify-between w-full pt-2 px-3.5 pb-1.5 cursor-pointer"> 
           <div class="text-sm check">
               <i class="far ${DONE} ${background} ${start} ${end} fa-lg text-gray-400 complete cursor-pointer" id="${id}"></i>
               <span class="text break-all ml-2 ${LINE}">${toDo}</span>
@@ -91,19 +89,10 @@ function addTodo(toDo, id, done, trash){
 
       lists.insertAdjacentHTML(position, text)
 
-      div.innerHTML= `
-              <p class=""> <span id="noOfItemsLeft"></span><!-- Add dynamic number --> item(s) left</p>
-              <div class="flex justify-between text-base hidden font-semibold lg:flex xl:text-xl">
-                  <p><a href="" class="cursor-pointer px-2">All</a></p>
-                  <p><a href="" class="cursor-pointer px-2">Active</a></p>
-                  <p><a href="" class="cursor-pointer px-2">Completed</a></p>
-              </div>
-              <p><a href="#" class="cursor-pointer" id="clear"> Clear Completed</a></p>
-    `;
+      
       const clearCompletedTodos = document.getElementById('clear').addEventListener("click", clear)
       // console.log(clearCompletedTodos)
 
-    lists.appendChild(div)
   }
       
 }
@@ -165,15 +154,16 @@ function removeTodo(task){
 // target d list created dynamically
 lists.addEventListener('click', function(event){
   const task = event.target;
-  const taskJob = task.classList;
+  const taskClass = task.classList;
 
-  if(taskJob.contains('complete')){
+  if(taskClass.contains('complete')){
     completeTodo(task);
 
     // add todo to localStorage
     localStorage.setItem('TODO', JSON.stringify(LIST))
-  }else if(taskJob.contains('delete')){
+  }else if(taskClass.contains('delete')){
     removeTodo(task);
+    localStorage.setItem('TODO', JSON.stringify(LIST))
   }
 })
 
@@ -188,11 +178,16 @@ function clear(){
     let i = list.indexOf(item);
     
     item.done ? checkedItems[i].classList.add('remove-item') : newList.push(item);
+    // console.log(checkedItems[i])
   }
 
   // Remove <li> tags from DOM
-  removeItems = document.getElementsByClassName('remove-item')
-  while (removeItems.length > 0) removeItems[0].remove();
+  let removeItems = document.getElementsByClassName('remove-item');
+  console.log(removeItems)
+
+  if(confirm('Are you sure ?')){
+    while (removeItems.length > 0) removeItems[0].remove();
+  }
 
   // Update localStorage
   localStorage.setItem('TODO', JSON.stringify(newList));
@@ -203,6 +198,31 @@ function clear(){
     
   // }
 }
+
+// display d number of todos left
+let checkedItems = document.getElementById('todos').children;
+let listNumber = document.getElementById('noOfItemsLeft')
+// listNumber.innerText = checkedItems.length;
+
+
+for(let i = 0; i < checkedItems.length;i++){
+  listNumber.innerText = checkedItems.length;
+  if(checkedItems.length = 0){
+    listNumber.innerText = '';
+  }
+  
+}
+// function countItems(lists){
+//   let i = 0, itemCount = 0;
+//   while (lists.getElementsByTagName('li') [i++]) itemCount++; 
+//   listNumber.innerText = itemCount;
+// }
+
+
+
+
+
+
 //   let completed = document.getElementsByClassName('strike');
 //   console.log(completed);
 

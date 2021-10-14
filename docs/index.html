@@ -44,7 +44,7 @@
                     <input id="taskValue" type="text" name="todo" placeholder="Create a new todo.." class="bg-white dark:bg-input-bg text-black w-full ml-2 outline-none dark:text-white sm:text-base lg:py-1 xl:py-1.5 xl:text-xl"/> 
                 </div>
 
-                <ul id="todos" class="bg-white dark:bg-input-bg divide-y divide-gray-500 text-listColor dark:text-textColor mt-4 mb-4 rounded shadow-md">
+                <ul id="todos" class="bg-white dark:bg-input-bg divide-y divide-gray-500 text-listColor dark:text-textColor mt-4 rounded shadow-md">
                     <!-- <li class="flex justify-between w-full pt-2 px-3.5 pb-1.5"> 
                         <div class="">
                             <i class="far fa-circle"></i>
@@ -54,9 +54,18 @@
                         <i class="fas fa-times text-gray-400" ></i>
                     </li>  -->
                     <!-- <div id="todos" class="divide-y divide-gray-500"></div> -->
-                    <div id="div" class="flex justify-between py-2 px-2 text-sm text-textColor font-medium sm:text-base xl:text-xl">
-                    </div>
+                    
                 </ul>
+
+                <div id="div" class="bg-white dark:bg-input-bg flex justify-between mb-2 py-2 px-2 text-sm text-textColor border-t border-gray-500 font-medium shadow-md sm:text-base xl:text-xl">
+                    <p class=""> <span id="noOfItemsLeft"></span><!-- Add dynamic number --> item(s) left</p>
+                    <div class="flex justify-between text-base hidden font-semibold lg:flex xl:text-xl">
+                        <p><a href="" class="cursor-pointer px-2">All</a></p>
+                        <p><a href="" class="cursor-pointer px-2">Active</a></p>
+                        <p><a href="" class="cursor-pointer px-2">Completed</a></p>
+                    </div>
+                    <p><a href="#" class="cursor-pointer" id="clear"> Clear Completed</a></p>
+                </div>
 
                 <div class="flex justify-between bg-white dark:bg-input-bg rounded py-2 px-2 text-base font-semibold lg:hidden">
                     <p><a href="" class="cursor-pointer">All</a></p>
