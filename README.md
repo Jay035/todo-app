@@ -1,8 +1,5 @@
 # Frontend Mentor - Todo app
 
-## Live link
-https://jay035.github.io/todo-app/
-
 ![Design preview for the Todo app coding challenge](./design/desktop-preview.jpg)
 
 ## Welcome! 👋

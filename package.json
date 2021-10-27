@@ -4,7 +4,7 @@
   "description": "![Design preview for the Todo app coding challenge](./design/desktop-preview.jpg)",
   "main": "index.js",
   "scripts": {
-    "build:css": "tailwind build src/style.css -o dist/style.css"
+    "build:css": "tailwind build src/style.css -o docs/style.css"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +12,10 @@
   "devDependencies": {
     "autoprefixer": "^10.3.4",
     "postcss": "^8.3.6",
-    "tailwindcss": "^2.2.15"
+    "tailwindcss": "^2.2.15",
+    "tailwindcss-pseudo-elements": "^2.0.0"
+  },
+  "dependencies": {
+    "tailwind-pseudo-elements": "^0.4.0"
   }
 }

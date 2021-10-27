@@ -4,19 +4,3 @@
 
 @tailwind utilities;
 
-li.task{
-    border-bottom:1px solid hsl(236, 9%, 61%) ;
-}
-
-/* input.listCheck:checked + div {
-    border-color: transparent;
-    background: linear-gradient(to right, #57ddff, #c058f3);     
-    @apply border-transparent;
-    @apply bg-gradient-to-r;
-    @apply from-blue-gradient-start;
-    @apply to-blue-gradient-end; 
-} */
-
-/* input.listCheck:checked + div svg {
-    display: block;
-} */

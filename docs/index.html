@@ -11,11 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/30175a4a2d.js" crossorigin="anonymous"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script> 
+    <!-- <link rel="preload" href="./images/icon-check.svg" as="image" type="image/svg+xml" crossorigin="anonymous"> -->
     <!-- title -->
     <title>Frontend Mentor | Todo app</title>
 
 </head>
-<body class="m-0 box-border bg-light-white text-textColor dark:bg-darkModeBg font-josefin transition-all">
+<body class="m-0 box-border bg-darkModeBg text-textColor dark:bg-light-white font-josefin transition-all">
     <div id="root">
         <main class="">
             <!-- Nav -->
@@ -24,7 +26,7 @@
                     <!-- <div class="mx-auto sm:w-full"> -->
                         <h1 class="text-light-white text-3xl tracking-widest uppercase font-medium lg:text-4xl xl:text-5xl">Todo</h1>
                         <a href="#" id="mode">
-                            <img id="mode-img" class="w-8 h-7 inline-block" src="./images/icon-moon.svg" alt="icon-moon">
+                            <img id="mode-img" class="w-8 h-7 inline-block" src="./images/icon-sun.svg" alt="icon-sun">
                         </a>
                     <!-- </div> -->
                 </div>
@@ -32,19 +34,19 @@
 
                 <!-- nav image -->
                 <div class="nav-bg">
-                    <img class="nav-img w-full bg-contain bg-center bg-no-repeat sm:h-40 sm:hidden lg:h-52 lg:bg-auto xl:h-56" src="./images/bg-mobile-light.jpg" alt="bg-mobile-light">
-                    <img id="desktop-bg" class="nav-img w-full bg-contain bg-center bg-no-repeat hidden sm:h-40 sm:flex lg:h-52 lg:bg-auto xl:h-56" src="./images/bg-desktop-light.jpg" alt="bg-desktop-light">
+                    <img class="nav-img w-full bg-contain bg-center bg-no-repeat sm:h-40 sm:hidden lg:h-52 lg:bg-auto xl:h-56" src="./images/bg-mobile-dark.jpg" alt="bg-mobile-light">
+                    <img id="desktop-bg" class="nav-img w-full bg-contain bg-center bg-no-repeat hidden sm:h-40 sm:flex lg:h-52 lg:bg-auto xl:h-56" src="./images/bg-desktop-dark.jpg" alt="bg-desktop-light">
                 </div>
             </nav>
 
             <section class="relative w-10/12 mx-auto -top-24 sm:-top-12 sm:w-3/5 lg:-top-24 lg:max-w-2xl">
-                <div id="addTodo" class="flex justify-between px-4 py-2 rounded bg-white dark:bg-input-bg sm:justify-start">
-                    <i class="far fa-circle fa-lg cursor-pointer id="addTodo"></i>
+                <div class="card add flex justify-between px-4 py-2 rounded bg-input-bg dark:bg-white sm:justify-start">
+                    <i class="far fa-circle fa-lg cursor-pointer" id="addTodo"></i>
                     
-                    <input id="taskValue" type="text" name="todo" placeholder="Create a new todo.." class="bg-white dark:bg-input-bg text-black w-full ml-2 outline-none dark:text-white sm:text-base lg:py-1 xl:py-1.5 xl:text-xl"/> 
+                    <input id="taskValue" type="text" autocomplete="off" name="todo" placeholder="Create a new todo.." class="bg-input-bg dark:bg-white text-white w-full ml-2 outline-none dark:text-black sm:text-base lg:py-1 xl:py-1.5 xl:text-xl"/> 
                 </div>
 
-                <ul id="todos" class="bg-white dark:bg-input-bg divide-y divide-gray-500 text-listColor dark:text-textColor mt-4 rounded shadow-md">
+                <ul class="todos bg-input-bg dark:bg-white divide-y divide-gray-500 text-textColor dark:text-listColor mt-4 rounded shadow-md select-none">
                     <!-- <li class="flex justify-between w-full pt-2 px-3.5 pb-1.5"> 
                         <div class="">
                             <i class="far fa-circle"></i>
@@ -57,20 +59,28 @@
                     
                 </ul>
 
-                <div id="div" class="bg-white dark:bg-input-bg flex justify-between mb-2 py-2 px-2 text-sm text-textColor border-t border-gray-500 font-medium shadow-md sm:text-base xl:text-xl">
-                    <p class=""> <span id="noOfItemsLeft"></span><!-- Add dynamic number --> item(s) left</p>
-                    <div class="flex justify-between text-base hidden font-semibold lg:flex xl:text-xl">
-                        <p><a href="" class="cursor-pointer px-2">All</a></p>
-                        <p><a href="" class="cursor-pointer px-2">Active</a></p>
-                        <p><a href="" class="cursor-pointer px-2">Completed</a></p>
+                <div id="div" class="card bg-input-bg dark:bg-white flex justify-between mb-2 py-2 px-2 text-sm text-textColor border-t border-gray-500 font-medium shadow-md sm:text-base xl:text-xl">
+                    <p class=""> <b id="noOfItemsLeft">0</b><!-- Add dynamic number --> item(s) left</p>
+                    <!-- filter task for desktop  -->
+                    <div class="filter flex justify-between text-base hidden font-semibold lg:flex xl:text-xl">
+                        <!-- all task preview -->
+                        <p><a href="#" class="px-2 all hover:text-activeLinkColor">All</a></p>
+                        <!-- active task preview -->
+                        <p><a href="#" class="px-2 active hover:text-activeLinkColor">Active</a></p>
+                        <!-- completed task preview  -->
+                        <p><a href="#" class="px-2 completed hover:text-activeLinkColor">Completed</a></p>
                     </div>
-                    <p><a href="#" class="cursor-pointer" id="clear"> Clear Completed</a></p>
+                    <p><a href="#" id="clear" class="hover:text-activeLinkColor"> Clear Completed</a></p>
                 </div>
 
-                <div class="flex justify-between bg-white dark:bg-input-bg rounded py-2 px-2 text-base font-semibold lg:hidden">
-                    <p><a href="" class="cursor-pointer">All</a></p>
-                    <p><a href="" class="cursor-pointer">Active</a></p>
-                    <p><a href="" class="cursor-pointer">Completed</a></p>
+                <!-- filter task for mobile -->
+                <div class="filter flex justify-between bg-input-bg dark:bg-white rounded py-2 px-2 text-base font-semibold lg:hidden">
+                    <!-- all task preview -->
+                    <p><a href="#" class="cursor-pointer all-mobile hover:text-activeLinkColor">All</a></p>
+                    <!-- active task preview -->
+                    <p><a href="#" class="cursor-pointer active-mobile hover:text-activeLinkColor">Active</a></p>
+                    <!-- completed task preview  -->
+                    <p><a href="#" class="cursor-pointer completed-mobile hover:text-activeLinkColor">Completed</a></p>
                 </div>
                 <p class="mt-8 text-center font-medium">Drag and drop to reorder list</p> 
 
@@ -80,7 +90,7 @@
             <div class="relative bottom-0 text-base font-medium w-full">
                 <div class="w-11/12 mx-auto text-attributionColor pb-2 text-center">
                     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"><strong>Frontend Mentor</strong></a>. 
-                    Coded by <a href="#" target="_blank"><strong>CodexJay</strong></a>.
+                    Coded by <a href="https://www.frontendmentor.io/profile/Jay035" target="_blank"><strong>CodexJay</strong></a>.
                 </div>
                 
             </div>
@@ -89,9 +99,7 @@
     </div>
 
     <script src="./app.js"></script>
-  <!-- Compiled and minified javascript -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
-  <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
+    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
 
 </body>
 </html>
