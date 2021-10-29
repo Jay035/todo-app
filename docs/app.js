@@ -156,7 +156,7 @@ function loadTodo(){
       span.classList.add('mr-4');
       delBtn.classList.add('hover:text-activeLinkColor');
       textAndBtn.classList.add('todo-li-wrap', 'flex', 'justify-between','w-full');
-    
+
       delBtn.innerHTML = `<img src="./images/icon-cross.svg" alt="delete"/>`
 
       // append child elements to listContainer
@@ -217,13 +217,17 @@ listContainer.addEventListener('click', (e) => {
   const targetClass = e.target.classList;
   if(targetClass.contains('todo-checkbox')) {
     targetClass.remove('todo-checkbox', 'before:empty-content', 'before:bg-check-before', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5', 'bg-transparent', 'border-2', 'border-gray-300', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
-    targetClass.add('todo-completed', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center', 'after:empty-content', 'after:my-1.5', 'after:bg-contain', 'after:bg-no-repeat','after:bg-checkbox','after:h-6', 'after:w-7');
+    targetClass.add('todo-completed', 'before:empty-content', 'before:h-6', 'before:w-7', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center');
+    // target.setAttribute('tw-content-h-before', '\f00c');
+    // target.setAttribute('tw-content-before', '\f00c');
     target.parentNode.classList.add("complete", "line-through", "text-listColor");
     todoCount();
     updateCompletedTodos();
   }else if(targetClass.contains('todo-completed')){
-    targetClass.remove('todo-completed', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center', 'after:empty-content', 'after:my-1.5', 'after:bg-contain', 'after:bg-no-repeat','after:bg-checkbox','after:h-6', 'after:w-7');
-    targetClass.add('todo-checkbox', 'before:empty-content', 'before:bg-check-before', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5','bg-transparent', 'border-2', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
+    targetClass.remove('todo-completed', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center');
+    targetClass.add('todo-checkbox', 'before:text-white', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5','bg-transparent', 'border-2', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
+    // hide d check mark 
+    // target.children[0].classList.add('hidden');
     target.parentNode.classList.remove("complete", "line-through", "text-listColor");
     todoCount();
     updateCompletedTodos();
@@ -266,9 +270,7 @@ function updateLocalStorage() {
 // clear completed todos 
 function clearCompletedTodos(){
   let completedTodos = document.getElementsByClassName('complete');
-  let c = 0;
   if(completedTodos.length > 0 && confirm(`You are about to delete ${completedTodos.length} task(s).`)){
-      // list[0 + c].remove();
     for (let x of completedTodos) {
       x.remove();
       todoCount();
@@ -293,10 +295,10 @@ function filterAll(){
   // give d 'all' button a blue color onclick
   allBtn.classList.add('text-activeLinkColor');
   allMobileBtn.classList.add('text-activeLinkColor');
-  // remove d blue color of d 'active' button onclick
+  // remove d blue color of d 'active' button 
   activeBtn.classList.remove('text-activeLinkColor');
   activeMobileBtn.classList.remove('text-activeLinkColor');
-  // remove d blue color of d 'completed' button onclick
+  // remove d blue color of d 'completed' button 
   completedBtn.classList.remove('text-activeLinkColor');
   completedMobileBtn.classList.remove('text-activeLinkColor');
 
@@ -319,10 +321,10 @@ function filterActive(){
   activeBtn.classList.add('text-activeLinkColor');
   activeMobileBtn.classList.add('text-activeLinkColor');
 
-  // remove d blue color of d 'all' button onclick
+  // remove d blue color of d 'all' button 
   allBtn.classList.remove('text-activeLinkColor');
   allMobileBtn.classList.remove('text-activeLinkColor');
-  // remove d blue color of d 'completed' button onclick
+  // remove d blue color of d 'completed' button 
   completedBtn.classList.remove('text-activeLinkColor');
   completedMobileBtn.classList.remove('text-activeLinkColor');
 

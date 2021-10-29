@@ -4,3 +4,6 @@
 
 @tailwind utilities;
 
+.before\:empty::before{
+    content: "\f00c";
+}

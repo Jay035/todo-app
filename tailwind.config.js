@@ -49,6 +49,9 @@ module.exports = {
               ".empty-content": {
                 content: "''",
               },
+              ".check": {
+                content: "'\f00c'",
+              },
             }
             addUtilities(newUtilities, {
               variants: ["before", "after"],
