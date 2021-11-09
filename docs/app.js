@@ -75,7 +75,7 @@ addIcon.addEventListener('click', (addTodo) => {
   }
   else{
     const li = document.createElement('li'),
-      checkbox = document.createElement('div'),
+      checkbox = document.createElement('label'),
       text = document.createTextNode(todoInput.value),
       span = document.createElement('span'),
       delBtn = document.createElement('button'),
@@ -84,8 +84,12 @@ addIcon.addEventListener('click', (addTodo) => {
 
       // add classnames
       li.classList.add('todo-li', 'flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5');
-      checkbox.classList.add('todo-checkbox', 'before:empty-content', 'before:bg-check-before', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'w-6', 'flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6', 'bg-transparent', 'border-2', 'border-gray-300', 'dark:border-gray-400', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
-      span.classList.add('mr-4');
+      checkbox.classList.add('inline-flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6','hover:border-2', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
+      checkbox.innerHTML = `
+        <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:border-gray-400 cursor-pointer unchecked" type="checkbox" />
+      `;
+      // bg-gradient-to-r from-blue-gradient-start to-blue-gradient-end bg-clip-text
+      span.classList.add('mr-8', 'break-all');
       delBtn.classList.add('hover:text-activeLinkColor');
       textAndBtn.classList.add('todo-li-wrap', 'flex', 'justify-between','w-full');
       
@@ -102,6 +106,9 @@ addIcon.addEventListener('click', (addTodo) => {
 
       // remove todo event
       delBtn.addEventListener('click', removeTodo, false);
+      // completeTodo
+      listContainer.addEventListener('click', completeTodo, false);
+
       // store todo 
       storeTodo(todoInput.value);
       // clear input field after todo has been added 
@@ -139,11 +146,10 @@ function loadTodo(){
   }
   else{
     todos = JSON.parse(localStorage.getItem('TODOS'));
-  }
 
   for(let i in todos){
     const li = document.createElement('li'),
-      checkbox = document.createElement('div'),
+      checkbox = document.createElement('label'),
       text = document.createTextNode(todos[i]),
       span = document.createElement('span'),
       delBtn = document.createElement('button'),
@@ -151,9 +157,12 @@ function loadTodo(){
       textAndBtn = document.createElement('div');
 
       // add classnames
-      li.classList.add('todo-li', 'flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5');
-      checkbox.classList.add('todo-checkbox', 'before:empty-content', 'before:bg-check-before', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'w-6', 'flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6', 'bg-transparent', 'border-2', 'border-gray-400', 'dark:border-gray-300', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
-      span.classList.add('mr-4');
+      li.classList.add('todo-li','flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5');
+      checkbox.classList.add('inline-flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6','hover:border-2', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
+      checkbox.innerHTML = `
+        <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:border-gray-400 cursor-pointer check" type="checkbox" />
+      `;
+      span.classList.add('mr-8', 'break-all');
       delBtn.classList.add('hover:text-activeLinkColor');
       textAndBtn.classList.add('todo-li-wrap', 'flex', 'justify-between','w-full');
 
@@ -170,14 +179,21 @@ function loadTodo(){
 
       // remove todo event
       delBtn.addEventListener('click', removeTodo, false);
+      // completeTodo
+      listContainer.addEventListener('click', completeTodo, false);
       
       //  count items left 
       todoCount();
   }
+}
+
   let index = JSON.parse(localStorage.getItem('CompletedTodos') || '[]');
   for(let i = 0; i < index.length; i++){
-    [...listContainer.children][index[i]].children[0].classList.add('todo-completed', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center', 'after:empty-content', 'after:my-1.5', 'after:bg-contain', 'after:bg-no-repeat','after:bg-checkbox','after:h-6', 'after:w-7');
-    [...listContainer.children][index[i]].classList.add('line-through', 'text-listColor');
+    // console.log([...listContainer.children][index[i]].children[0].children);
+    [...listContainer.children][index[i]].children[0].firstElementChild.setAttribute('checked','checked');
+    // [...listContainer.children][index[i]].children[0].classList.remove('border-2', 'border-gray-300', 'dark:border-gray-400');
+    [...listContainer.children][index[i]].classList.add('line-through', 'text-listColor', 'complete');
+    // console.log([...listContainer.children])
   }
 
   // give d 'all' button a blue color when d page loads
@@ -211,28 +227,43 @@ function todoCount(){
 }
 
 // complete a task 
-listContainer.addEventListener('click', (e) => {
+function completeTodo(e){
   const target = e.target;
-  // console.log(target)
-  const targetClass = e.target.classList;
-  if(targetClass.contains('todo-checkbox')) {
-    targetClass.remove('todo-checkbox', 'before:empty-content', 'before:bg-check-before', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5', 'bg-transparent', 'border-2', 'border-gray-300', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
-    targetClass.add('todo-completed', 'before:empty-content', 'before:h-6', 'before:w-7', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center');
-    // target.setAttribute('tw-content-h-before', '\f00c');
-    // target.setAttribute('tw-content-before', '\f00c');
-    target.parentNode.classList.add("complete", "line-through", "text-listColor");
-    todoCount();
-    updateCompletedTodos();
-  }else if(targetClass.contains('todo-completed')){
-    targetClass.remove('todo-completed', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center');
-    targetClass.add('todo-checkbox', 'before:text-white', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5','bg-transparent', 'border-2', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
-    // hide d check mark 
-    // target.children[0].classList.add('hidden');
-    target.parentNode.classList.remove("complete", "line-through", "text-listColor");
+  if(target.checked){
+    target.parentNode.parentNode.classList.add("complete", "line-through", "text-listColor");
+    // console.log(target.parentNode.parentNode)
+
     todoCount();
     updateCompletedTodos();
   }
-})
+  else{
+    target.parentNode.parentNode.parentNode.classList.remove("complete", "line-through", "text-listColor");
+    todoCount();
+    updateCompletedTodos();
+  }
+}
+// function completeTodo(e) {
+//   const target = e.target;
+//   // console.log(target)
+//   const targetClass = e.target.classList;
+//   if(targetClass.contains('unchecked')) {
+//     targetClass.add('checked')
+//     // console.log(123)
+//     // targetClass.remove('todo-checkbox', 'before:empty-content', 'before:bg-check-before', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5', 'bg-transparent', 'border-2', 'border-gray-300', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
+//     // targetClass.add('todo-completed', 'before:empty-content', 'before:h-6', 'before:w-7', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center');
+//     target.parentNode.classList.add("complete", "line-through", "text-listColor");
+//     todoCount();
+//     updateCompletedTodos();
+//   }else if(targetClass.contains('todo-completed')){
+//     // targetClass.remove('todo-completed', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center');
+//     // targetClass.add('todo-checkbox', 'before:text-white', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5','bg-transparent', 'border-2', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
+//     // hide d check mark 
+//     // target.children[0].classList.add('hidden');
+//     target.parentNode.classList.remove("complete", "line-through", "text-listColor");
+//     todoCount();
+//     updateCompletedTodos();
+//   }
+// }
 
 function updateCompletedTodos(){
   let list = getIndex();
@@ -244,8 +275,10 @@ function updateCompletedTodos(){
 function getIndex(){
   let index = [];
   for(let i = 0; i < [...listContainer.children].length; i++){
-    [...listContainer.children][i].children[0].classList.contains('todo-completed')
+    [...listContainer.children][i].classList.contains('complete')
     ? index.push(i) : null
+    // console.log(index)
+
   }
   return index;
 }
@@ -269,7 +302,7 @@ function updateLocalStorage() {
 
 // clear completed todos 
 function clearCompletedTodos(){
-  let completedTodos = document.getElementsByClassName('complete');
+  let completedTodos = document.querySelectorAll('.complete');
   if(completedTodos.length > 0 && confirm(`You are about to delete ${completedTodos.length} task(s).`)){
     for (let x of completedTodos) {
       x.remove();

@@ -19,7 +19,7 @@ module.exports = {
         'textColor': 'hsl(236, 9%, 61%)',
         'listColor': 'hsl(235, 19%, 35%)',
         'listColorDark': 'hsl(235, 19%, 35%)',
-        'check-before': '#25273c',
+        'checkColor': '#8f76f3',
         'activeLinkColor': 'hsl(220, 98%, 61%)',
         'checkboxBg': '#4d5066',
         'attributionColor': '#3e52a3',
@@ -44,13 +44,12 @@ module.exports = {
     },
   },
   plugins: [require('tailwindcss-pseudo-elements'),
+            require('@tailwindcss/custom-forms'),
+
           plugin(({addUtilities}) => {
             const newUtilities = {
               ".empty-content": {
                 content: "''",
-              },
-              ".check": {
-                content: "'\f00c'",
               },
             }
             addUtilities(newUtilities, {
