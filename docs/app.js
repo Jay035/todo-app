@@ -1,22 +1,4 @@
-// EVENT LISTENERS 
-window.addEventListener('DOMContentLoaded', loadTodo);
-window.addEventListener('DOMContentLoaded', todoCount);
-// mode change trigger
-document.getElementById('mode').addEventListener('click', changeImg);
-// clear completed todos event
-document.getElementById('clear').addEventListener('click', clearCompletedTodos, false);
-// filter all todos event on desktops
-document.querySelector('.all').addEventListener('click', filterAll, false);
-// filter active todos event on desktops
-document.querySelector('.active').addEventListener('click', filterActive, false);
-// filter completed todos event on desktops
-document.querySelector('.completed').addEventListener('click', filterCompleted, false);
-// filter all todos event on mobile
-document.querySelector('.all-mobile').addEventListener('click', filterAll, false);
-// filter active todos event on mobile
-document.querySelector('.active-mobile').addEventListener('click', filterActive, false);
-// filter completed todos event on mobile
-document.querySelector('.completed-mobile').addEventListener('click', filterCompleted, false);
+// -----------------------------------
 
 // VARIABLES
 // todo lists Container 
@@ -37,6 +19,27 @@ const activeMobileBtn = document.querySelector('.active-mobile');
 const completedBtn = document.querySelector('.completed');
 // completed button (mobile)
 const completedMobileBtn = document.querySelector('.completed-mobile');
+
+
+// EVENT LISTENERS 
+window.addEventListener('DOMContentLoaded', loadTodo);
+window.addEventListener('DOMContentLoaded', todoCount);
+// mode change trigger
+document.getElementById('mode').addEventListener('click', changeImg);
+// clear completed todos event
+document.getElementById('clear').addEventListener('click', clearCompletedTodos, false);
+// filter all todos event on desktops
+allBtn.addEventListener('click', filterAll, false);
+// filter active todos event on desktops
+activeBtn.addEventListener('click', filterActive, false);
+// filter completed todos event on desktops
+completedBtn.addEventListener('click', filterCompleted, false);
+// filter all todos event on mobile
+allMobileBtn.addEventListener('click', filterAll, false);
+// filter active todos event on mobile
+activeMobileBtn.addEventListener('click', filterActive, false);
+// filter completed todos event on mobile
+completedMobileBtn.addEventListener('click', filterCompleted, false);
 
 // toggle between light & dark mode
 if(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)){
@@ -61,7 +64,6 @@ function changeImg(){
   // desktop nav img
   let desktopNavBg = document.getElementById('desktop-bg');
 
-  // if(img.src.match('../images/icon-moon.svg'))
   img.src.match('./images/icon-moon.svg')
     ? (document.documentElement.classList.add('dark'), img.src='./images/icon-sun.svg', desktopNavBg.src='./images/bg-desktop-dark.jpg', nav_bg.src='./images/bg-mobile-dark.jpg')
     : (document.documentElement.classList.remove('dark'), img.src='./images/icon-moon.svg', desktopNavBg.src='./images/bg-desktop-light.jpg', nav_bg.src='./images/bg-mobile-light.jpg')
@@ -83,7 +85,7 @@ addIcon.addEventListener('click', (addTodo) => {
       textAndBtn = document.createElement('div');
 
       // add classnames
-      li.classList.add('todo-li', 'flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5');
+      li.classList.add('todo-li', 'flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5', 'active', 'duration-200');
       checkbox.classList.add('inline-flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6','hover:border-2', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
       checkbox.innerHTML = `
         <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:border-gray-400 cursor-pointer unchecked" type="checkbox" />
@@ -157,7 +159,7 @@ function loadTodo(){
       textAndBtn = document.createElement('div');
 
       // add classnames
-      li.classList.add('todo-li','flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5');
+      li.classList.add('todo-li','flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5', 'active');
       checkbox.classList.add('inline-flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6','hover:border-2', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
       checkbox.innerHTML = `
         <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:border-gray-400 cursor-pointer check" type="checkbox" />
@@ -181,7 +183,6 @@ function loadTodo(){
       delBtn.addEventListener('click', removeTodo, false);
       // completeTodo
       listContainer.addEventListener('click', completeTodo, false);
-      
       //  count items left 
       todoCount();
   }
@@ -189,11 +190,9 @@ function loadTodo(){
 
   let index = JSON.parse(localStorage.getItem('CompletedTodos') || '[]');
   for(let i = 0; i < index.length; i++){
-    // console.log([...listContainer.children][index[i]].children[0].children);
     [...listContainer.children][index[i]].children[0].firstElementChild.setAttribute('checked','checked');
-    // [...listContainer.children][index[i]].children[0].classList.remove('border-2', 'border-gray-300', 'dark:border-gray-400');
-    [...listContainer.children][index[i]].classList.add('line-through', 'text-listColor', 'complete');
-    // console.log([...listContainer.children])
+    [...listContainer.children][index[i]].classList.add('line-through', 'text-gray-400', 'complete');
+    [...listContainer.children][index[i]].classList.remove("active");
   }
 
   // give d 'all' button a blue color when d page loads
@@ -206,7 +205,6 @@ function removeTodo(e){
   let lists = listContainer.getElementsByTagName('li'),
   index = [...lists].indexOf(e.target.parentNode.parentNode)
   if(confirm('You are about to delete a task')) {
-    // console.log(e.target.parentNode.parentNode.parentNode)
     e.target.parentNode.parentNode.parentNode.remove();
   }
   // update local storage
@@ -219,7 +217,6 @@ function removeTodo(e){
 function todoCount(){
   let lists = document.getElementsByTagName('li');
   let completedList = document.getElementsByClassName('complete')
-  // console.log(completedList.length)
   let lastIndex = [...lists].length - completedList.length ;
   
   let noOfItems = document.getElementById('noOfItemsLeft')
@@ -230,40 +227,18 @@ function todoCount(){
 function completeTodo(e){
   const target = e.target;
   if(target.checked){
-    target.parentNode.parentNode.classList.add("complete", "line-through", "text-listColor");
-    // console.log(target.parentNode.parentNode)
-
+    target.parentNode.parentNode.classList.add("complete", "line-through", "text-gray-400");
+    target.parentNode.parentNode.classList.remove("active");
     todoCount();
     updateCompletedTodos();
   }
   else{
-    target.parentNode.parentNode.parentNode.classList.remove("complete", "line-through", "text-listColor");
+    target.parentNode.parentNode.classList.remove("complete", "line-through", "text-gray-400");
+    target.parentNode.parentNode.classList.add("active");
     todoCount();
     updateCompletedTodos();
   }
 }
-// function completeTodo(e) {
-//   const target = e.target;
-//   // console.log(target)
-//   const targetClass = e.target.classList;
-//   if(targetClass.contains('unchecked')) {
-//     targetClass.add('checked')
-//     // console.log(123)
-//     // targetClass.remove('todo-checkbox', 'before:empty-content', 'before:bg-check-before', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5', 'bg-transparent', 'border-2', 'border-gray-300', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
-//     // targetClass.add('todo-completed', 'before:empty-content', 'before:h-6', 'before:w-7', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center');
-//     target.parentNode.classList.add("complete", "line-through", "text-listColor");
-//     todoCount();
-//     updateCompletedTodos();
-//   }else if(targetClass.contains('todo-completed')){
-//     // targetClass.remove('todo-completed', 'bg-gradient-to-r', 'from-blue-gradient-start', 'to-blue-gradient-end', 'flex', 'justify-center', 'items-center');
-//     // targetClass.add('todo-checkbox', 'before:text-white', 'before:h-6', 'before:w-6', 'before:rounded-lg', 'flex', 'justify-center', 'items-center', 'mr-1.5','bg-transparent', 'border-2', 'border-gray-400', 'hover:bg-gradient-to-r', 'hover:from-blue-gradient-start', 'hover:to-blue-gradient-end');
-//     // hide d check mark 
-//     // target.children[0].classList.add('hidden');
-//     target.parentNode.classList.remove("complete", "line-through", "text-listColor");
-//     todoCount();
-//     updateCompletedTodos();
-//   }
-// }
 
 function updateCompletedTodos(){
   let list = getIndex();
@@ -319,12 +294,12 @@ function filterAll(){
   let list = listContainer.getElementsByTagName('li');
   for(let i in [...list]){
     list[i].style.display = '';
-    // console.log(list[i]);
+    console.log(list[i]);
   }
   
-  let active = document.getElementsByClassName('todo-checkbox');
+  let active = document.getElementsByClassName('active');
   // remove d hidden property of d list items 
-  for(let i in [...active]) active[i].parentNode.classList.remove('hidden');
+  for(let i in [...active]) active[i].classList.remove('hidden');
   // give d 'all' button a blue color onclick
   allBtn.classList.add('text-activeLinkColor');
   allMobileBtn.classList.add('text-activeLinkColor');
@@ -342,13 +317,12 @@ function filterActive(){
   // reset styles 
   filterAll();
   // filter completed 
-  let completed = document.getElementsByClassName('todo-completed');
-  for(let i in [...completed]) completed[i].parentNode.classList.add('hidden');
-  // console.log(completed[i]);
+  let completed = document.getElementsByClassName('complete');
+  for(let i in [...completed]) completed[i].classList.add('hidden');
 
-  let active = document.getElementsByClassName('todo-checkbox');
+  let active = document.getElementsByClassName('active');
   // remove d hidden property of d list items 
-  for(let i in [...active]) active[i].parentNode.classList.remove('hidden');
+  for(let i in [...active]) active[i].classList.remove('hidden');
 
   // give d 'active' button a bright blue color onclick
   activeBtn.classList.add('text-activeLinkColor');
@@ -368,9 +342,13 @@ function filterCompleted(){
   // reset styles 
   filterAll();
   // filter active todos
-  let active = document.getElementsByClassName('todo-checkbox');
-  for(let i in [...active]) active[i].parentNode.classList.add('hidden');
+  let active = document.getElementsByClassName('active');
+  for(let i in [...active]) active[i].classList.add('hidden');
   // console.log(active[i])
+  // display d checked todos 
+  let completed = document.getElementsByClassName('complete');
+  for(let i in [...completed]) completed[i].classList.remove('hidden');
+
 
   // give d 'completed' button a bright blue color onclick
   completedBtn.classList.add('text-activeLinkColor');
