@@ -88,7 +88,7 @@ addIcon.addEventListener('click', (addTodo) => {
       li.classList.add('todo-li', 'flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5', 'active', 'duration-200');
       checkbox.classList.add('inline-flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6','hover:border-2', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
       checkbox.innerHTML = `
-        <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:border-gray-400 cursor-pointer unchecked" type="checkbox" />
+        <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:bg-transparent dark:border-gray-300 cursor-pointer uncheck" type="checkbox" />
       `;
       // bg-gradient-to-r from-blue-gradient-start to-blue-gradient-end bg-clip-text
       span.classList.add('mr-8', 'break-all');
@@ -162,7 +162,7 @@ function loadTodo(){
       li.classList.add('todo-li','flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5', 'active');
       checkbox.classList.add('inline-flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6','hover:border-2', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
       checkbox.innerHTML = `
-        <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:border-gray-400 cursor-pointer check" type="checkbox" />
+        <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:bg-transparent dark:border-gray-300 cursor-pointer uncheck" type="checkbox" />
       `;
       span.classList.add('mr-8', 'break-all');
       delBtn.classList.add('hover:text-activeLinkColor');
@@ -191,6 +191,8 @@ function loadTodo(){
   let index = JSON.parse(localStorage.getItem('CompletedTodos') || '[]');
   for(let i = 0; i < index.length; i++){
     [...listContainer.children][index[i]].children[0].firstElementChild.setAttribute('checked','checked');
+    [...listContainer.children][index[i]].children[0].firstElementChild.classList.add('dark:bg-current','border-current');
+    [...listContainer.children][index[i]].children[0].firstElementChild.classList.remove('dark:bg-transparent', 'border-gray-300');
     [...listContainer.children][index[i]].classList.add('line-through', 'text-gray-400', 'complete');
     [...listContainer.children][index[i]].classList.remove("active");
   }
@@ -229,12 +231,16 @@ function completeTodo(e){
   if(target.checked){
     target.parentNode.parentNode.classList.add("complete", "line-through", "text-gray-400");
     target.parentNode.parentNode.classList.remove("active");
+    target.classList.add('dark:bg-current', 'border-current');
+    target.classList.remove('dark:bg-transparent');
     todoCount();
     updateCompletedTodos();
   }
   else{
     target.parentNode.parentNode.classList.remove("complete", "line-through", "text-gray-400");
     target.parentNode.parentNode.classList.add("active");
+    target.classList.remove('dark:bg-current', 'border-current');
+    target.classList.add('dark:bg-transparent');
     todoCount();
     updateCompletedTodos();
   }
@@ -294,7 +300,6 @@ function filterAll(){
   let list = listContainer.getElementsByTagName('li');
   for(let i in [...list]){
     list[i].style.display = '';
-    console.log(list[i]);
   }
   
   let active = document.getElementsByClassName('active');
@@ -327,7 +332,6 @@ function filterActive(){
   // give d 'active' button a bright blue color onclick
   activeBtn.classList.add('text-activeLinkColor');
   activeMobileBtn.classList.add('text-activeLinkColor');
-
   // remove d blue color of d 'all' button 
   allBtn.classList.remove('text-activeLinkColor');
   allMobileBtn.classList.remove('text-activeLinkColor');
@@ -344,16 +348,13 @@ function filterCompleted(){
   // filter active todos
   let active = document.getElementsByClassName('active');
   for(let i in [...active]) active[i].classList.add('hidden');
-  // console.log(active[i])
   // display d checked todos 
   let completed = document.getElementsByClassName('complete');
   for(let i in [...completed]) completed[i].classList.remove('hidden');
 
-
   // give d 'completed' button a bright blue color onclick
   completedBtn.classList.add('text-activeLinkColor');
   completedMobileBtn.classList.add('text-activeLinkColor')
-
   // remove d blue color of d 'all' button 
   allBtn.classList.remove('text-activeLinkColor');
   allMobileBtn.classList.remove('text-activeLinkColor');
