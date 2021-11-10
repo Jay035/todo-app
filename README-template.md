@@ -110,5 +110,5 @@ I will continue to develop on my proficiency with tailwindcss, go further into l
 
 ## Acknowledgments
 
-I just want to use this medium to appreciate [Gabriel Osuobiem]() for his help in figuring out how to fix some bugs despite his tight schedule
+I just want to use this medium to appreciate [Gabriel Osuobiem](https://github.com/osuobiem) for his help in figuring out how to fix some bugs despite his tight schedule
 
