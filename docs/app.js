@@ -159,7 +159,7 @@ function loadTodo(){
       textAndBtn = document.createElement('div');
 
       // add classnames
-      li.classList.add('todo-li','flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5', 'active');
+      li.classList.add('todo-li','flex', 'w-full', 'pt-2', 'px-3.5', 'pb-1.5', 'active-todo');
       checkbox.classList.add('inline-flex', 'justify-center', 'items-center', 'cursor-pointer', 'mr-2.5', 'rounded-full', 'h-6','hover:border-2', 'hover:border-bg-gradient-to-r', 'hover:border-from-blue-gradient-start', 'hover:border-to-blue-gradient-end');
       checkbox.innerHTML = `
         <input class="form-checkbox text-checkColor w-6 h-6 rounded-full focus-ring-blue-gradient-start focus-ring-opacity-25 border-2 border-gray-300 dark:bg-transparent dark:border-gray-300 cursor-pointer uncheck" type="checkbox" />
@@ -194,7 +194,7 @@ function loadTodo(){
     [...listContainer.children][index[i]].children[0].firstElementChild.classList.add('dark:bg-current','border-current');
     [...listContainer.children][index[i]].children[0].firstElementChild.classList.remove('dark:bg-transparent', 'border-gray-300');
     [...listContainer.children][index[i]].classList.add('line-through', 'text-gray-400', 'complete');
-    [...listContainer.children][index[i]].classList.remove("active");
+    [...listContainer.children][index[i]].classList.remove("active-todo");
   }
 
   // give d 'all' button a blue color when d page loads
@@ -230,7 +230,7 @@ function completeTodo(e){
   const target = e.target;
   if(target.checked){
     target.parentNode.parentNode.classList.add("complete", "line-through", "text-gray-400");
-    target.parentNode.parentNode.classList.remove("active");
+    target.parentNode.parentNode.classList.remove("active-todo");
     target.classList.add('dark:bg-current', 'border-current');
     target.classList.remove('dark:bg-transparent');
     todoCount();
@@ -238,7 +238,7 @@ function completeTodo(e){
   }
   else{
     target.parentNode.parentNode.classList.remove("complete", "line-through", "text-gray-400");
-    target.parentNode.parentNode.classList.add("active");
+    target.parentNode.parentNode.classList.add("active-todo");
     target.classList.remove('dark:bg-current', 'border-current');
     target.classList.add('dark:bg-transparent');
     todoCount();
@@ -302,9 +302,13 @@ function filterAll(){
     list[i].style.display = '';
   }
   
-  let active = document.getElementsByClassName('active');
+  let active = document.getElementsByClassName('active-todo');
   // remove d hidden property of d list items 
   for(let i in [...active]) active[i].classList.remove('hidden');
+
+  let completed = document.getElementsByClassName('complete');
+  for(let i in [...completed]) completed[i].classList.remove('hidden');
+
   // give d 'all' button a blue color onclick
   allBtn.classList.add('text-activeLinkColor');
   allMobileBtn.classList.add('text-activeLinkColor');
@@ -325,7 +329,7 @@ function filterActive(){
   let completed = document.getElementsByClassName('complete');
   for(let i in [...completed]) completed[i].classList.add('hidden');
 
-  let active = document.getElementsByClassName('active');
+  let active = document.getElementsByClassName('active-todo');
   // remove d hidden property of d list items 
   for(let i in [...active]) active[i].classList.remove('hidden');
 
@@ -346,7 +350,7 @@ function filterCompleted(){
   // reset styles 
   filterAll();
   // filter active todos
-  let active = document.getElementsByClassName('active');
+  let active = document.getElementsByClassName('active-todo');
   for(let i in [...active]) active[i].classList.add('hidden');
   // display d checked todos 
   let completed = document.getElementsByClassName('complete');
